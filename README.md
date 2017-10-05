@@ -8,16 +8,18 @@ http://rancher.com/rancher2-0/
 
 ## Bootstrap cluster
 
-    vagrant up
+    . bootstrap.sh
 
-## Install Rancher server
-
-    vagrant ssh master -c "sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:preview"
- 
 ## Install Rancher agents
 
 Rancher will start on the following URL
 
-- http://10.0.0.10:8080/
+    http://$(docker-machine ip master):8080/
 
 You will need to create an ssh session on each node and copy and paste an agent connection command
+
+
+    for i in worker1 worker2 worker3
+    do
+      docker-machine ssh $i <copied from Rancher UI>
+    done
